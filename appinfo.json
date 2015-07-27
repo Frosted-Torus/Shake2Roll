@@ -1,0 +1,22 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "kenneth.schlatter@gmail.com",
+    "longName": "Shake2Roll",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "sdkVersion": "3",
+    "shortName": "Shake2Roll",
+    "targetPlatforms": [
+        "aplite"
+    ],
+    "uuid": "736a9614-93e0-4f66-a7a8-ef088081ad86",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": false
+    }
+}
