@@ -4,10 +4,21 @@
         ""
     ],
     "companyName": "kenneth.schlatter@gmail.com",
-    "longName": "Shake2Roll",
+    "longName": "Shake-2-Roll",
     "projectType": "native",
     "resources": {
         "media": [
+            {
+                "file": "fonts/Roboto-Regular.ttf",
+                "name": "ROBOTO_30",
+                "type": "font"
+            },
+            {
+                "file": "images/icon.png",
+                "menuIcon": true,
+                "name": "MENU_ICON",
+                "type": "png"
+            },
             {
                 "file": "images/Frosted Torus.png",
                 "name": "SPLASH",
@@ -16,7 +27,7 @@
         ]
     },
     "sdkVersion": "3",
-    "shortName": "Shake2Roll",
+    "shortName": "Shake-2-Roll",
     "targetPlatforms": [
         "aplite"
     ],
