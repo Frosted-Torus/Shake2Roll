@@ -35,18 +35,18 @@ uint8_t side_num = 6;
 //What to do on twist
 static void tap_handler(AccelAxisType axis, int32_t direction) {
 	APP_LOG(APP_LOG_LEVEL_INFO, "Detected Tap/Twist");
-	static char side_num_buffer[3] = "";
-	snprintf(side_num_buffer, sizeof(side_num_buffer), "%d", side_num);
+	static char side_buffer[3] = "";
+	snprintf(side_buffer, sizeof(side_buffer), "%d", side_num);
 	
 	//set die 1
-	die1 = ((rand() % side_buffer) + 1);
+	die1 = ((rand() % side_num) + 1);
 	static char die1_buffer[2] = "";
 	snprintf(die1_buffer, sizeof(die1_buffer), "%d", die1);
 	APP_LOG(APP_LOG_LEVEL_INFO, die1_buffer);
 	text_layer_set_text(result1, die1_buffer);
 	
 	//set die 2
-	die2 = ((rand() % 6) + 1);
+	die2 = ((rand() % side_num) + 1);
 	static char die2_buffer[2] = "";
 	snprintf(die2_buffer, sizeof(die2_buffer), "%d", die2);
 	APP_LOG(APP_LOG_LEVEL_INFO, die2_buffer);
@@ -56,7 +56,7 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	}
 	
 	//set die 3
-	die3 = ((rand() % 6) + 1);
+	die3 = ((rand() % side_num) + 1);
 	static char die3_buffer[2] = "";
 	snprintf(die3_buffer, sizeof(die3_buffer), "%d", die3);
 	APP_LOG(APP_LOG_LEVEL_INFO, die3_buffer);
@@ -66,7 +66,7 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	}
 	
 	//set die 4
-	die4 = ((rand() % 6) + 1);
+	die4 = ((rand() % side_num) + 1);
 	static char die4_buffer[2] = "";
 	snprintf(die4_buffer, sizeof(die4_buffer), "%d", die4);
 	APP_LOG(APP_LOG_LEVEL_INFO, die4_buffer);
@@ -76,7 +76,7 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	}
 	
 	//set die 5
-	die5 = ((rand() % 6) + 1);
+	die5 = ((rand() % side_num) + 1);
 	static char die5_buffer[2] = "";
 	snprintf(die5_buffer, sizeof(die5_buffer), "%d", die5);
 	APP_LOG(APP_LOG_LEVEL_INFO, die5_buffer);
@@ -86,7 +86,7 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	}
 	
 	//set die 6
-	die6 = ((rand() % 6) + 1);
+	die6 = ((rand() % side_num) + 1);
 	static char die6_buffer[2] = "";
 	snprintf(die6_buffer, sizeof(die6_buffer), "%d", die6);
 	APP_LOG(APP_LOG_LEVEL_INFO, die6_buffer);
