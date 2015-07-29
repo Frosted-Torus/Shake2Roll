@@ -38,7 +38,7 @@ void selected_sides_callback(NumberWindow *window, void *context){
 
 void selected_die_callback(NumberWindow *window, void *context){
 	die_num = number_window_get_value(window);
-	sides_window = number_window_create("How many sides do you want on each die?", (NumberWindowCallbacks){
+	sides_window = number_window_create("Select sides per die.", (NumberWindowCallbacks){
 		.selected = selected_sides_callback
 	}, NULL);
 	number_window_set_min(sides_window, 2);
@@ -49,7 +49,7 @@ void selected_die_callback(NumberWindow *window, void *context){
 //What to do on click
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
 	APP_LOG(APP_LOG_LEVEL_INFO, "You clicked select!");
-	die_window = number_window_create("How many dice do you want to roll?", (NumberWindowCallbacks){
+	die_window = number_window_create("How many dice do you want?", (NumberWindowCallbacks){
 		.selected = selected_die_callback
 	}, NULL);
 	number_window_set_min(die_window, 1);
@@ -70,14 +70,14 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	
 	//set die 1
 	die1 = ((rand() % side_num) + 1);
-	static char die1_buffer[2] = "";
+	static char die1_buffer[3] = "";
 	snprintf(die1_buffer, sizeof(die1_buffer), "%d", die1);
 	APP_LOG(APP_LOG_LEVEL_INFO, die1_buffer);
 	text_layer_set_text(result1, die1_buffer);
 	
 	//set die 2
 	die2 = ((rand() % side_num) + 1);
-	static char die2_buffer[2] = "";
+	static char die2_buffer[3] = "";
 	snprintf(die2_buffer, sizeof(die2_buffer), "%d", die2);
 	APP_LOG(APP_LOG_LEVEL_INFO, die2_buffer);
 	if (die_num >= 2) {
@@ -87,7 +87,7 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	
 	//set die 3
 	die3 = ((rand() % side_num) + 1);
-	static char die3_buffer[2] = "";
+	static char die3_buffer[3] = "";
 	snprintf(die3_buffer, sizeof(die3_buffer), "%d", die3);
 	APP_LOG(APP_LOG_LEVEL_INFO, die3_buffer);
 	if (die_num >= 3) {
@@ -97,7 +97,7 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	
 	//set die 4
 	die4 = ((rand() % side_num) + 1);
-	static char die4_buffer[2] = "";
+	static char die4_buffer[3] = "";
 	snprintf(die4_buffer, sizeof(die4_buffer), "%d", die4);
 	APP_LOG(APP_LOG_LEVEL_INFO, die4_buffer);
 	if (die_num >= 4) {
@@ -107,7 +107,7 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	
 	//set die 5
 	die5 = ((rand() % side_num) + 1);
-	static char die5_buffer[2] = "";
+	static char die5_buffer[3] = "";
 	snprintf(die5_buffer, sizeof(die5_buffer), "%d", die5);
 	APP_LOG(APP_LOG_LEVEL_INFO, die5_buffer);
 	if (die_num >= 5) {
@@ -117,7 +117,7 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	
 	//set die 6
 	die6 = ((rand() % side_num) + 1);
-	static char die6_buffer[2] = "";
+	static char die6_buffer[3] = "";
 	snprintf(die6_buffer, sizeof(die6_buffer), "%d", die6);
 	APP_LOG(APP_LOG_LEVEL_INFO, die6_buffer);
 	if (die_num >= 6) {
@@ -201,8 +201,7 @@ void main_window_load(Window *window) {
 	text_layer_set_font(result6, result_font);
 }
 
-static void window_unload(Window *window)
-{
+static void window_unload(Window *window) {
   //We will safely destroy the Window's elements here!
  	text_layer_destroy(result1);
 	text_layer_destroy(result2);
@@ -210,8 +209,10 @@ static void window_unload(Window *window)
 	text_layer_destroy(result4);
 	text_layer_destroy(result5);
 	text_layer_destroy(result6);
+ 	bitmap_layer_destroy(background_layer);
+	fonts_unload_custom_font(result_font);
+	
 }
-
 
 static void init() {
 	//give millis a value
