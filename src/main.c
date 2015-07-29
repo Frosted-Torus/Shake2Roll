@@ -48,40 +48,50 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	static char die2_buffer[2] = "";
 	snprintf(die2_buffer, sizeof(die2_buffer), "%d", die2);
 	APP_LOG(APP_LOG_LEVEL_INFO, die2_buffer);
+	if (die_num >= 2) {
 	text_layer_set_text(result2, die2_buffer);
 	text_layer_set_background_color(result2, GColorWhite);
+	}
 	
 	//set die 3
 	die3 = ((rand() % 6) + 1);
 	static char die3_buffer[2] = "";
 	snprintf(die3_buffer, sizeof(die3_buffer), "%d", die3);
 	APP_LOG(APP_LOG_LEVEL_INFO, die3_buffer);
+	if (die_num >= 3) {
 	text_layer_set_text(result3, die3_buffer);
 	text_layer_set_background_color(result3, GColorWhite);
+	}
 	
 	//set die 4
 	die4 = ((rand() % 6) + 1);
 	static char die4_buffer[2] = "";
 	snprintf(die4_buffer, sizeof(die4_buffer), "%d", die4);
 	APP_LOG(APP_LOG_LEVEL_INFO, die4_buffer);
+	if (die_num >= 4) {
 	text_layer_set_text(result4, die4_buffer);
 	text_layer_set_background_color(result4, GColorWhite);
+	}
 	
 	//set die 5
 	die5 = ((rand() % 6) + 1);
 	static char die5_buffer[2] = "";
 	snprintf(die5_buffer, sizeof(die5_buffer), "%d", die5);
 	APP_LOG(APP_LOG_LEVEL_INFO, die5_buffer);
+	if (die_num >= 5) {
 	text_layer_set_text(result5, die5_buffer);
 	text_layer_set_background_color(result5, GColorWhite);
+	}
 	
 	//set die 6
 	die6 = ((rand() % 6) + 1);
 	static char die6_buffer[2] = "";
 	snprintf(die6_buffer, sizeof(die6_buffer), "%d", die6);
 	APP_LOG(APP_LOG_LEVEL_INFO, die6_buffer);
+	if (die_num >= 6) {
 	text_layer_set_text(result6, die6_buffer);
 	text_layer_set_background_color(result6, GColorWhite);
+	}
 	
 	// Send a long vibration to the user wrist
 	vibes_short_pulse();
