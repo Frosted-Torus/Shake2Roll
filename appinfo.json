@@ -9,11 +9,6 @@
     "resources": {
         "media": [
             {
-                "file": "images/PixelArt_converted.png",
-                "name": "RESULTS",
-                "type": "png"
-            },
-            {
                 "file": "fonts/Roboto-Regular.ttf",
                 "name": "ROBOTO_30",
                 "type": "font"
@@ -27,6 +22,11 @@
             {
                 "file": "images/Frosted Torus.png",
                 "name": "SPLASH",
+                "type": "png"
+            },
+            {
+                "file": "images/PixelArt_converted.png",
+                "name": "RESULTS",
                 "type": "png"
             }
         ]

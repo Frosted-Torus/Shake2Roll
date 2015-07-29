@@ -1,4 +1,6 @@
 #include <pebble.h>
+  #include "main.h"
+  #include "splash.h"
 
 //Windows
 static Window *main_window;
@@ -182,6 +184,9 @@ static void window_unload(Window *window)
 	text_layer_destroy(result6);
 }
 
+void push_main_window(){
+  window_stack_push(main_window, true);
+}
 
 static void init() {
 	//give millis a value
@@ -193,9 +198,6 @@ static void init() {
     .load = main_window_load,
     //.unload = main_window_unload
   });
-
- 	//Show the Window on the watch, with animated=true
-	window_stack_push(main_window, true);
 	
 	//Random Number Generator!
 	srand(time(NULL));
@@ -209,6 +211,7 @@ static void deinit() {
 
 int main(void) {
   init();
+  splash_window_push();
   app_event_loop();
   deinit();
 }
