@@ -2,11 +2,10 @@
 
 //Windows
 static Window *main_window;
+static NumberWindow *die_window, *sides_window;
 
 //Text Layers
-TextLayer *result1;
-TextLayer *result2;
-TextLayer *result3;
+TextLayer *result1, *result2, *result3;
 TextLayer *result4;
 TextLayer *result5;
 TextLayer *result6;
@@ -28,12 +27,34 @@ uint8_t die4;
 uint8_t die5;
 uint8_t die6;
 uint8_t die_num = 6;
-uint8_t side_num = 6;
+uint8_t side_num = 6; //max random
 //static int millis = 1000;
+
+void selected_sides_callback(NumberWindow *window, void *context){
+	side_num = number_window_get_value(window);
+	window_stack_pop_all(true);
+	window_stack_push(main_window, true);
+}
+
+void selected_die_callback(NumberWindow *window, void *context){
+	die_num = number_window_get_value(window);
+	sides_window = number_window_create("How many sides do you want on each die?", (NumberWindowCallbacks){
+		.selected = selected_sides_callback
+	}, NULL);
+	number_window_set_min(sides_window, 2);
+	number_window_set_max(sides_window, 30);
+	window_stack_push(number_window_get_window(sides_window), true);
+}
 
 //What to do on click
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
 	APP_LOG(APP_LOG_LEVEL_INFO, "You clicked select!");
+	die_window = number_window_create("How many dice do you want to roll?", (NumberWindowCallbacks){
+		.selected = selected_die_callback
+	}, NULL);
+	number_window_set_min(die_window, 1);
+	number_window_set_max(die_window, 6);
+	window_stack_push(number_window_get_window(die_window), true);
 }
 
 //Click info
