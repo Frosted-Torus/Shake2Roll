@@ -35,9 +35,11 @@ uint8_t side_num = 6;
 //What to do on twist
 static void tap_handler(AccelAxisType axis, int32_t direction) {
 	APP_LOG(APP_LOG_LEVEL_INFO, "Detected Tap/Twist");
+	static char side_num_buffer[3] = "";
+	snprintf(side_num_buffer, sizeof(side_num_buffer), "%d", side_num);
 	
 	//set die 1
-	die1 = ((rand() % 6) + 1);
+	die1 = ((rand() % side_buffer) + 1);
 	static char die1_buffer[2] = "";
 	snprintf(die1_buffer, sizeof(die1_buffer), "%d", die1);
 	APP_LOG(APP_LOG_LEVEL_INFO, die1_buffer);
