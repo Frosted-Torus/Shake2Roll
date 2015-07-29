@@ -17,6 +17,7 @@ static GBitmap *background_bitmap;
 
 //Variables
 uint8_t dice;
+int millis = 100000;
 
 //What to do on twist
 static void tap_handler(AccelAxisType axis, int32_t direction) {
@@ -26,6 +27,8 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	snprintf(dice_buffer, sizeof(dice_buffer), "%d", dice);
 	APP_LOG(APP_LOG_LEVEL_INFO, dice_buffer);
 	text_layer_set_text(result, dice_buffer);
+	// Send a long vibration to the user wrist
+	vibes_short_pulse();
 }
 
 //Make window
@@ -36,11 +39,20 @@ void main_window_load(Window *window) {
   bitmap_layer_set_bitmap(background_layer, background_bitmap);
   layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(background_layer));
 	
+	//Wait for a bit
+	void psleep(int millis);
+		
+	//Show Results background
+ 	background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_RESULTS);
+ 	background_layer = bitmap_layer_create(GRect(0, 0, 144, 164));
+ 	bitmap_layer_set_bitmap(background_layer, background_bitmap);
+ 	layer_add_child(window_get_root_layer(main_window), bitmap_layer_get_layer(background_layer));
+	
 	//Subscribe to Accelerometer tap service
 	accel_tap_service_subscribe(tap_handler);
 	
 	//Text Layer
-	result = text_layer_create(GRect(52, 62, 40, 40));
+	result = text_layer_create(GRect(27, 10, 36, 36));
 	text_layer_set_background_color(result, GColorWhite);
 	text_layer_set_text_color(result, GColorBlack);
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(result));
@@ -60,6 +72,8 @@ static void window_unload(Window *window)
 
 
 static void init() {
+	//give millis a value
+	//millis = 10000;
 	// Create main Window element and assign to pointer
   main_window = window_create();
   // Set handlers to manage the elements inside the Window
