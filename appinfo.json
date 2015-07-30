@@ -3,7 +3,7 @@
     "capabilities": [
         ""
     ],
-    "companyName": "kenneth.schlatter@gmail.com",
+    "companyName": "FrostedTorus",
     "longName": "Shake-2-Roll",
     "projectType": "native",
     "resources": {
@@ -37,7 +37,7 @@
         "aplite"
     ],
     "uuid": "736a9614-93e0-4f66-a7a8-ef088081ad86",
-    "versionLabel": "1.0",
+    "versionLabel": "1.02",
     "watchapp": {
         "watchface": false
     }
