@@ -1,34 +1,18 @@
 #include <pebble.h>
-
-//Windows
+#include "main.h"
+#include "splash.h"
+	
 static Window *main_window;
 static NumberWindow *die_window, *sides_window;
-
-//Text Layers
-TextLayer *result1, *result2, *result3;
-TextLayer *result4;
-TextLayer *result5;
-TextLayer *result6;
-
-//Fonts
+TextLayer *result1, *result2, *result3, *result4, *result5, *result6;
 static GFont result_font;
-
-//Bitmaps
-static BitmapLayer *splash;
-static BitmapLayer *results;
-static BitmapLayer *background_layer;
+static BitmapLayer *splash, *results, *background_layer;
 static GBitmap *background_bitmap;
+uint8_t die1, die2, die3, die4, die5, die6, die_num = 6, side_num = 6;//max random
 
-//Variables
-uint8_t die1;
-uint8_t die2;
-uint8_t die3;
-uint8_t die4;
-uint8_t die5;
-uint8_t die6;
-uint8_t die_num = 6;
-uint8_t side_num = 6; //max random
-//static int millis = 1000;
+void push_main_window(){
+	window_stack_push(main_window, true);
+}
 
 void selected_sides_callback(NumberWindow *window, void *context){
 	side_num = number_window_get_value(window);
@@ -137,9 +121,6 @@ void main_window_load(Window *window) {
   bitmap_layer_set_bitmap(background_layer, background_bitmap);
   layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(background_layer));
 	
-	//Wait for a bit
-	//void psleep(int millis);
-		
 	//Show Results background
  	background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_RESULTS);
  	background_layer = bitmap_layer_create(GRect(0, 0, 144, 164));
@@ -199,6 +180,7 @@ void main_window_load(Window *window) {
 	text_layer_set_font(result4, result_font);
 	text_layer_set_font(result5, result_font);
 	text_layer_set_font(result6, result_font);
+	APP_LOG(APP_LOG_LEVEL_INFO, "Good-bye!");
 }
 
 static void window_unload(Window *window) {
@@ -211,7 +193,6 @@ static void window_unload(Window *window) {
 	text_layer_destroy(result6);
  	bitmap_layer_destroy(background_layer);
 	fonts_unload_custom_font(result_font);
-	
 }
 
 static void init() {
@@ -226,8 +207,7 @@ static void init() {
   });
 
  	//Show the Window on the watch, with animated=true
-	window_stack_push(main_window, true);
-	
+	splash_window_push();	
 	//Random Number Generator!
 	srand(time(NULL));
 	
@@ -246,3 +226,4 @@ int main(void) {
   app_event_loop();
   deinit();
 }
+//230 Lines of Code!
