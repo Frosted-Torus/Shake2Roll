@@ -11,7 +11,7 @@ void torus_handler (){
 }
 
 void splash_window_load(Window *window){
-    AppTimer *animation_timer = app_timer_register(3000, torus_handler, NULL);
+    AppTimer *animation_timer = app_timer_register(1000, torus_handler, NULL);
   torus_bitmap = gbitmap_create_with_resource(RESOURCE_ID_SPLASH);
  	torus_layer = bitmap_layer_create(GRect(0, 0, 144, 164));
  	bitmap_layer_set_bitmap(torus_layer, torus_bitmap);

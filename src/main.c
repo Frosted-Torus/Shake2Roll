@@ -32,6 +32,10 @@ uint8_t die_num = 6;
 uint8_t side_num = 6; //max random
 //static int millis = 1000;
 
+void push_main_window(){
+	window_stack_push(main_window, true);
+}
+
 void selected_sides_callback(NumberWindow *window, void *context){
 	side_num = number_window_get_value(window);
 	window_stack_pop_all(true);
@@ -228,8 +232,7 @@ static void init() {
   });
 
  	//Show the Window on the watch, with animated=true
-	window_stack_push(main_window, true);
-	
+	splash_window_push();	
 	//Random Number Generator!
 	srand(time(NULL));
 	
