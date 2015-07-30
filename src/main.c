@@ -2,35 +2,13 @@
 #include "main.h"
 #include "splash.h"
 
-//Windows
 static Window *main_window;
 static NumberWindow *die_window, *sides_window;
-
-//Text Layers
-TextLayer *result1, *result2, *result3;
-TextLayer *result4;
-TextLayer *result5;
-TextLayer *result6;
-
-//Fonts
+TextLayer *result1, *result2, *result3, *result4, *result5, *result6;
 static GFont result_font;
-
-//Bitmaps
-static BitmapLayer *splash;
-static BitmapLayer *results;
-static BitmapLayer *background_layer;
+static BitmapLayer *splash, *results, *background_layer;
 static GBitmap *background_bitmap;
-
-//Variables
-uint8_t die1;
-uint8_t die2;
-uint8_t die3;
-uint8_t die4;
-uint8_t die5;
-uint8_t die6;
-uint8_t die_num = 6;
-uint8_t side_num = 6; //max random
-//static int millis = 1000;
+uint8_t die1, die2, die3, die4, die5, die6, die_num = 6, side_num = 6;//max random
 
 void push_main_window(){
 	window_stack_push(main_window, true);
