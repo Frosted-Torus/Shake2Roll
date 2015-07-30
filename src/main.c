@@ -1,7 +1,7 @@
 #include <pebble.h>
 #include "main.h"
 #include "splash.h"
-
+	
 static Window *main_window;
 static NumberWindow *die_window, *sides_window;
 TextLayer *result1, *result2, *result3, *result4, *result5, *result6;
@@ -121,9 +121,6 @@ void main_window_load(Window *window) {
   bitmap_layer_set_bitmap(background_layer, background_bitmap);
   layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(background_layer));
 	
-	//Wait for a bit
-	//void psleep(int millis);
-		
 	//Show Results background
  	background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_RESULTS);
  	background_layer = bitmap_layer_create(GRect(0, 0, 144, 164));
@@ -183,6 +180,7 @@ void main_window_load(Window *window) {
 	text_layer_set_font(result4, result_font);
 	text_layer_set_font(result5, result_font);
 	text_layer_set_font(result6, result_font);
+	APP_LOG(APP_LOG_LEVEL_INFO, "Good-bye!");
 }
 
 static void window_unload(Window *window) {
@@ -195,7 +193,6 @@ static void window_unload(Window *window) {
 	text_layer_destroy(result6);
  	bitmap_layer_destroy(background_layer);
 	fonts_unload_custom_font(result_font);
-	
 }
 
 static void init() {
@@ -229,3 +226,4 @@ int main(void) {
   app_event_loop();
   deinit();
 }
+//230 Lines of Code!
