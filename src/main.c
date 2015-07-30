@@ -1,14 +1,13 @@
 #include <pebble.h>
-  #include "main.h"
-  #include "splash.h"
+#include "main.h"
+#include "splash.h"
 
 //Windows
 static Window *main_window;
+static NumberWindow *die_window, *sides_window;
 
 //Text Layers
-TextLayer *result1;
-TextLayer *result2;
-TextLayer *result3;
+TextLayer *result1, *result2, *result3;
 TextLayer *result4;
 TextLayer *result5;
 TextLayer *result6;
@@ -30,9 +29,40 @@ uint8_t die4;
 uint8_t die5;
 uint8_t die6;
 uint8_t die_num = 6;
-uint8_t side_num = 6;
+uint8_t side_num = 6; //max random
 //static int millis = 1000;
-//static char millis_buffer[4] = "";
+
+void selected_sides_callback(NumberWindow *window, void *context){
+	side_num = number_window_get_value(window);
+	window_stack_pop_all(true);
+	window_stack_push(main_window, true);
+}
+
+void selected_die_callback(NumberWindow *window, void *context){
+	die_num = number_window_get_value(window);
+	sides_window = number_window_create("Select sides per die.", (NumberWindowCallbacks){
+		.selected = selected_sides_callback
+	}, NULL);
+	number_window_set_min(sides_window, 2);
+	number_window_set_max(sides_window, 30);
+	window_stack_push(number_window_get_window(sides_window), true);
+}
+
+//What to do on click
+static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
+	APP_LOG(APP_LOG_LEVEL_INFO, "You clicked select!");
+	die_window = number_window_create("How many dice do you want?", (NumberWindowCallbacks){
+		.selected = selected_die_callback
+	}, NULL);
+	number_window_set_min(die_window, 1);
+	number_window_set_max(die_window, 6);
+	window_stack_push(number_window_get_window(die_window), true);
+}
+
+//Click info
+static void click_config_provider(void *context) {
+	 window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);
+}
 
 //What to do on twist
 static void tap_handler(AccelAxisType axis, int32_t direction) {
@@ -42,14 +72,14 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	
 	//set die 1
 	die1 = ((rand() % side_num) + 1);
-	static char die1_buffer[2] = "";
+	static char die1_buffer[3] = "";
 	snprintf(die1_buffer, sizeof(die1_buffer), "%d", die1);
 	APP_LOG(APP_LOG_LEVEL_INFO, die1_buffer);
 	text_layer_set_text(result1, die1_buffer);
 	
 	//set die 2
 	die2 = ((rand() % side_num) + 1);
-	static char die2_buffer[2] = "";
+	static char die2_buffer[3] = "";
 	snprintf(die2_buffer, sizeof(die2_buffer), "%d", die2);
 	APP_LOG(APP_LOG_LEVEL_INFO, die2_buffer);
 	if (die_num >= 2) {
@@ -59,7 +89,7 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	
 	//set die 3
 	die3 = ((rand() % side_num) + 1);
-	static char die3_buffer[2] = "";
+	static char die3_buffer[3] = "";
 	snprintf(die3_buffer, sizeof(die3_buffer), "%d", die3);
 	APP_LOG(APP_LOG_LEVEL_INFO, die3_buffer);
 	if (die_num >= 3) {
@@ -69,7 +99,7 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	
 	//set die 4
 	die4 = ((rand() % side_num) + 1);
-	static char die4_buffer[2] = "";
+	static char die4_buffer[3] = "";
 	snprintf(die4_buffer, sizeof(die4_buffer), "%d", die4);
 	APP_LOG(APP_LOG_LEVEL_INFO, die4_buffer);
 	if (die_num >= 4) {
@@ -79,7 +109,7 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	
 	//set die 5
 	die5 = ((rand() % side_num) + 1);
-	static char die5_buffer[2] = "";
+	static char die5_buffer[3] = "";
 	snprintf(die5_buffer, sizeof(die5_buffer), "%d", die5);
 	APP_LOG(APP_LOG_LEVEL_INFO, die5_buffer);
 	if (die_num >= 5) {
@@ -89,7 +119,7 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	
 	//set die 6
 	die6 = ((rand() % side_num) + 1);
-	static char die6_buffer[2] = "";
+	static char die6_buffer[3] = "";
 	snprintf(die6_buffer, sizeof(die6_buffer), "%d", die6);
 	APP_LOG(APP_LOG_LEVEL_INFO, die6_buffer);
 	if (die_num >= 6) {
@@ -110,7 +140,7 @@ void main_window_load(Window *window) {
   layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(background_layer));
 	
 	//Wait for a bit
-	//void psleep(int millis_buffer);
+	//void psleep(int millis);
 		
 	//Show Results background
  	background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_RESULTS);
@@ -173,8 +203,7 @@ void main_window_load(Window *window) {
 	text_layer_set_font(result6, result_font);
 }
 
-static void window_unload(Window *window)
-{
+static void window_unload(Window *window) {
   //We will safely destroy the Window's elements here!
  	text_layer_destroy(result1);
 	text_layer_destroy(result2);
@@ -182,10 +211,9 @@ static void window_unload(Window *window)
 	text_layer_destroy(result4);
 	text_layer_destroy(result5);
 	text_layer_destroy(result6);
-}
-
-void push_main_window(){
-  window_stack_push(main_window, true);
+ 	bitmap_layer_destroy(background_layer);
+	fonts_unload_custom_font(result_font);
+	
 }
 
 static void init() {
@@ -198,9 +226,15 @@ static void init() {
     .load = main_window_load,
     //.unload = main_window_unload
   });
+
+ 	//Show the Window on the watch, with animated=true
+	window_stack_push(main_window, true);
 	
 	//Random Number Generator!
 	srand(time(NULL));
+	
+	//"subscribe" to click
+	window_set_click_config_provider(main_window, click_config_provider);
 	
 }
 
@@ -211,7 +245,6 @@ static void deinit() {
 
 int main(void) {
   init();
-  splash_window_push();
   app_event_loop();
   deinit();
 }
