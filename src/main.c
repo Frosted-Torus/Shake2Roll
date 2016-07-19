@@ -26,42 +26,44 @@ void selected_die_callback(NumberWindow *window, void *context){
 		.selected = selected_sides_callback
 	}, NULL);
 	number_window_set_min(sides_window, 2);
-	number_window_set_max(sides_window, 30);
+	number_window_set_max(sides_window, 100);
+  number_window_set_value(sides_window, side_num);
 	window_stack_push(number_window_get_window(sides_window), true);
 }
 
 //What to do on click
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
 	APP_LOG(APP_LOG_LEVEL_INFO, "You clicked select!");
-	die_window = number_window_create("How many dice do you want?", (NumberWindowCallbacks){
+	die_window = number_window_create("How many dice?", (NumberWindowCallbacks){
 		.selected = selected_die_callback
 	}, NULL);
 	number_window_set_min(die_window, 1);
 	number_window_set_max(die_window, 6);
+  number_window_set_value(die_window, die_num);
 	window_stack_push(number_window_get_window(die_window), true);
 }
 
 //Click info
 static void click_config_provider(void *context) {
-	 window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);
+	window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);
 }
 
 //What to do on twist
 static void tap_handler(AccelAxisType axis, int32_t direction) {
 	APP_LOG(APP_LOG_LEVEL_INFO, "Detected Tap/Twist");
-	static char side_buffer[3] = "";
+	static char side_buffer[4] = "";
 	snprintf(side_buffer, sizeof(side_buffer), "%d", side_num);
 	
 	//set die 1
 	die1 = ((rand() % side_num) + 1);
-	static char die1_buffer[3] = "";
+	static char die1_buffer[4] = "";
 	snprintf(die1_buffer, sizeof(die1_buffer), "%d", die1);
 	APP_LOG(APP_LOG_LEVEL_INFO, die1_buffer);
 	text_layer_set_text(result1, die1_buffer);
 	
 	//set die 2
 	die2 = ((rand() % side_num) + 1);
-	static char die2_buffer[3] = "";
+	static char die2_buffer[4] = "";
 	snprintf(die2_buffer, sizeof(die2_buffer), "%d", die2);
 	APP_LOG(APP_LOG_LEVEL_INFO, die2_buffer);
 	if (die_num >= 2) {
@@ -71,7 +73,7 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	
 	//set die 3
 	die3 = ((rand() % side_num) + 1);
-	static char die3_buffer[3] = "";
+	static char die3_buffer[4] = "";
 	snprintf(die3_buffer, sizeof(die3_buffer), "%d", die3);
 	APP_LOG(APP_LOG_LEVEL_INFO, die3_buffer);
 	if (die_num >= 3) {
@@ -81,7 +83,7 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	
 	//set die 4
 	die4 = ((rand() % side_num) + 1);
-	static char die4_buffer[3] = "";
+	static char die4_buffer[4] = "";
 	snprintf(die4_buffer, sizeof(die4_buffer), "%d", die4);
 	APP_LOG(APP_LOG_LEVEL_INFO, die4_buffer);
 	if (die_num >= 4) {
@@ -91,7 +93,7 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	
 	//set die 5
 	die5 = ((rand() % side_num) + 1);
-	static char die5_buffer[3] = "";
+	static char die5_buffer[4] = "";
 	snprintf(die5_buffer, sizeof(die5_buffer), "%d", die5);
 	APP_LOG(APP_LOG_LEVEL_INFO, die5_buffer);
 	if (die_num >= 5) {
@@ -101,7 +103,7 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 	
 	//set die 6
 	die6 = ((rand() % side_num) + 1);
-	static char die6_buffer[3] = "";
+	static char die6_buffer[4] = "";
 	snprintf(die6_buffer, sizeof(die6_buffer), "%d", die6);
 	APP_LOG(APP_LOG_LEVEL_INFO, die6_buffer);
 	if (die_num >= 6) {

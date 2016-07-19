@@ -1,0 +1,51 @@
+{
+    "author": "FrostedTorus",
+    "dependencies": {},
+    "keywords": [],
+    "name": "shake-2-roll",
+    "pebble": {
+        "capabilities": [
+            ""
+        ],
+        "displayName": "Shake-2-Roll",
+        "enableMultiJS": false,
+        "messageKeys": {},
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "file": "images/icon.png",
+                    "menuIcon": true,
+                    "name": "MENU_ICON",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/Frosted Torus.png",
+                    "name": "SPLASH",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/PixelArt_converted.png",
+                    "name": "RESULTS",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "fonts/Roboto-Regular.ttf",
+                    "name": "ROBOTO_30",
+                    "type": "font"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "aplite",
+            "basalt"
+        ],
+        "uuid": "736a9614-93e0-4f66-a7a8-ef088081ad86",
+        "watchapp": {
+            "watchface": false
+        }
+    },
+    "version": "1.1.0"
+}
