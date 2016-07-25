@@ -11,10 +11,12 @@ void torus_handler (){
 }
 
 void splash_window_load(Window *window){
-    AppTimer *animation_timer = app_timer_register(1000, torus_handler, NULL);
+  GRect bounds = layer_get_bounds(window_get_root_layer(window));
+  AppTimer *animation_timer = app_timer_register(1000, torus_handler, NULL);
   torus_bitmap = gbitmap_create_with_resource(RESOURCE_ID_SPLASH);
- 	torus_layer = bitmap_layer_create(GRect(0, 0, 144, 164));
+ 	torus_layer = bitmap_layer_create(bounds);
  	bitmap_layer_set_bitmap(torus_layer, torus_bitmap);
+  bitmap_layer_set_background_color(torus_layer, GColorBlack);
  	layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(torus_layer));
 }
   

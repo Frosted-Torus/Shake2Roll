@@ -117,15 +117,17 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 
 //Make window
 void main_window_load(Window *window) {
+  GRect bounds = layer_get_bounds(window_get_root_layer(window));
+  
   // Create GBitmap, then set to created BitmapLayer
   background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_SPLASH);
-  background_layer = bitmap_layer_create(GRect(0, 0, 144, 164));
+  background_layer = bitmap_layer_create(bounds);
   bitmap_layer_set_bitmap(background_layer, background_bitmap);
   layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(background_layer));
 	
 	//Show Results background
  	background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_RESULTS);
- 	background_layer = bitmap_layer_create(GRect(0, 0, 144, 164));
+ 	background_layer = bitmap_layer_create(bounds);
  	bitmap_layer_set_bitmap(background_layer, background_bitmap);
  	layer_add_child(window_get_root_layer(main_window), bitmap_layer_get_layer(background_layer));
 	
@@ -133,42 +135,66 @@ void main_window_load(Window *window) {
 	accel_tap_service_subscribe(tap_handler);
 	
 	//Text Layer 1
+  #if defined(PBL_RECT)
 	result1 = text_layer_create(GRect(27, 10, 36, 36));
+  #elif defined(PBL_ROUND)
+  result1 = text_layer_create(GRect(45, 16, 36, 36));
+  #endif
 	text_layer_set_background_color(result1, GColorWhite);
 	text_layer_set_text_color(result1, GColorBlack);
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(result1));
 	text_layer_set_text_alignment(result1, GTextAlignmentCenter);
 	
 	//Text Layer 2
+  #if defined(PBL_RECT)
 	result2 = text_layer_create(GRect(81, 10, 36, 36));
+  #elif defined(PBL_ROUND)
+  result2 = text_layer_create(GRect(99, 16, 36, 36));
+  #endif
 	text_layer_set_background_color(result2, GColorClear);
 	text_layer_set_text_color(result2, GColorBlack);
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(result2));
 	text_layer_set_text_alignment(result2, GTextAlignmentCenter);
 	
 	//Text Layer 3
+  #if defined(PBL_RECT)
 	result3 = text_layer_create(GRect(27, 59, 36, 36));
+  #elif defined(PBL_ROUND)
+  result3 = text_layer_create(GRect(45, 65, 36, 36));
+  #endif
 	text_layer_set_background_color(result3, GColorClear);
 	text_layer_set_text_color(result3, GColorBlack);
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(result3));
 	text_layer_set_text_alignment(result3, GTextAlignmentCenter);
 	
 	//Text Layer 4
+  #if defined(PBL_RECT)
 	result4 = text_layer_create(GRect(81, 59, 36, 36));
+  #elif defined(PBL_ROUND)
+  result4 = text_layer_create(GRect(99, 65, 36, 36));
+  #endif
 	text_layer_set_background_color(result4, GColorClear);
 	text_layer_set_text_color(result4, GColorBlack);
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(result4));
 	text_layer_set_text_alignment(result4, GTextAlignmentCenter);
 	
 	//Text Layer 5
+  #if defined(PBL_RECT)
 	result5 = text_layer_create(GRect(27, 108, 36, 36));
+  #elif defined(PBL_ROUND)
+  result5 = text_layer_create(GRect(45, 114, 36, 36));
+  #endif
 	text_layer_set_background_color(result5, GColorClear);
 	text_layer_set_text_color(result5, GColorBlack);
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(result5));
 	text_layer_set_text_alignment(result5, GTextAlignmentCenter);
 	
 	//Text Layer 6
+  #if defined(PBL_RECT)
 	result6 = text_layer_create(GRect(81, 108, 36, 36));
+  #elif defined(PBL_ROUND)
+  result6 = text_layer_create(GRect(99, 114, 36, 36));
+  #endif
 	text_layer_set_background_color(result6, GColorClear);
 	text_layer_set_text_color(result6, GColorBlack);
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(result6));
